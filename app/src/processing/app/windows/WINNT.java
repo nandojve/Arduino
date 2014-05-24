@@ -40,6 +40,8 @@ public interface WINNT {
   public final static int KEY_ENUMERATE_SUB_KEYS = 0x0008;
   public final static int KEY_NOTIFY             = 0x0010;
   public final static int KEY_CREATE_LINK        = 0x0020;
+  public final static int KEY_WOW64_64KEY        = 0x0100;
+  public final static int KEY_WOW64_32KEY        = 0x0200;
   
   public final static int KEY_READ  = ((STANDARD_RIGHTS_READ | KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY) & (~SYNCHRONIZE));
   public final static int KEY_WRITE = ((STANDARD_RIGHTS_WRITE | KEY_SET_VALUE | KEY_CREATE_SUB_KEY) & (~SYNCHRONIZE));
