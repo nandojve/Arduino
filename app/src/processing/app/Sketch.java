@@ -23,6 +23,7 @@
 
 package processing.app;
 
+import processing.app.debug.AvrxprogUploader;
 import processing.app.debug.AvrdudeUploader;
 import processing.app.debug.Compiler;
 import processing.app.debug.RunnerException;
@@ -1656,19 +1657,26 @@ public class Sketch {
 
 
   protected String upload(String buildPath, String suggestedClassName, boolean usingProgrammer)
-    throws RunnerException, SerialException {
-
-    Uploader uploader;
-
-    // download the program
-    //
-    uploader = new AvrdudeUploader();
-    boolean success = uploader.uploadUsingPreferences(buildPath,
-                                                      suggestedClassName,
-                                                      usingProgrammer);
-
-    return success ? suggestedClassName : null;
-  }
+    throws RunnerException, SerialException
+    {
+        boolean success             = false; 
+        Uploader uploader           = null;
+        Map<String, String> boardPreferences = Base.getBoardPreferences();
+    
+        // check if protocol is AVRxPROG
+        if(Base.isWindows())
+        {
+            if(boardPreferences.get("upload.protocol").equals("avrxprog"))
+                uploader            = new AvrxprogUploader();
+        }
+        else
+            uploader                = new AvrdudeUploader();
+    
+        if(uploader != null)
+            uploader.uploadUsingPreferences(buildPath, suggestedClassName, usingProgrammer);
+        
+        return success ? suggestedClassName : null;
+    }
 
   /**
    * Replace all commented portions of a given String as spaces.
