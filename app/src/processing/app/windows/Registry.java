@@ -132,6 +132,46 @@ public class Registry {
   }
 
   /**
+   * Read a String value.
+   *
+   * @param rootKey root key
+   * @param subKeyName key name
+   * @param name value name
+   * @param x64 register region (x86 or x64)
+   * @throws java.io.UnsupportedEncodingException on error
+   * @return String or null
+   */
+  public static String getStringValueEx(REGISTRY_ROOT_KEY rootKey, String subKeyName, String name, boolean x64) throws UnsupportedEncodingException {
+    Advapi32 advapi32;
+    IntByReference pType, lpcbData;
+    byte[] lpData = new byte[1];
+    int handle = 0;
+    String ret = null;
+
+    advapi32 = Advapi32.INSTANCE;
+    pType = new IntByReference();
+    lpcbData = new IntByReference();
+    
+    if(x64)
+        handle = openKey(rootKey, subKeyName, WINNT.KEY_READ | WINNT.KEY_WOW64_64KEY);
+    else
+        handle = openKey(rootKey, subKeyName, WINNT.KEY_READ | WINNT.KEY_WOW64_32KEY);
+
+    if(handle != 0) {
+
+      if(advapi32.RegQueryValueEx(handle, name, null, pType, lpData, lpcbData) == WINERROR.ERROR_MORE_DATA) {
+        lpData = new byte[lpcbData.getValue()];
+
+        if(advapi32.RegQueryValueEx(handle, name, null, pType, lpData, lpcbData) == WINERROR.ERROR_SUCCESS) {
+          ret = convertBufferToString(lpData);
+        }
+      }
+      advapi32.RegCloseKey(handle);
+    }
+    return(ret);
+  }
+  
+  /**
    * Read an int value.
    *
    *
