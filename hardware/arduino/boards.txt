@@ -567,6 +567,23 @@ robotMotor.build.variant=robot_motor
 
 ##############################################################
 
+kitrfa1_duino.name=KITRFA1
+kitrfa1_duino.upload.protocol=avrxprog
+kitrfa1_duino.upload.speed=115200
+kitrfa1_duino.bootloader.low_fuses=0xF6
+kitrfa1_duino.bootloader.high_fuses=0x10
+kitrfa1_duino.bootloader.extended_fuses=0xFE
+kitrfa1_duino.bootloader.path=atmegarf
+kitrfa1_duino.bootloader.file=avrxprog_atmega128rfa1_KITRFA1.hex
+kitrfa1_duino.bootloader.unlock_bits=0x3F
+kitrfa1_duino.bootloader.lock_bits=0x0F
+kitrfa1_duino.build.mcu=atmega128rfa1
+kitrfa1_duino.build.f_cpu=16000000L
+kitrfa1_duino.build.core=wmduino
+kitrfa1_duino.build.variant=kitrfa1
+
+##############################################################
+
 wm101_duino.name=WM-101
 wm101_duino.upload.protocol=avrxprog
 wm101_duino.upload.speed=115200
