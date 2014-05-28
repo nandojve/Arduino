@@ -143,8 +143,8 @@ const uint16_t PROGMEM port_to_input_PGM[] =
 {
 	NOT_A_PIN,
 	NOT_A_PIN,
+	(uint16_t)&PINB,
 	NOT_A_PIN,
-	(uint16_t)&PINC,
 	(uint16_t)&PIND,
 	(uint16_t)&PINE,
 	(uint16_t)&PINF,
