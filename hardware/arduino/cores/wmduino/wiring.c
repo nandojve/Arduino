@@ -255,23 +255,23 @@ void init()
 	#warning this needs to be finished
 #endif
 
-	// set timer 2 prescale factor to 64
-#if defined(TCCR2) && defined(CS22)
-	sbi(TCCR2, CS22);
-#elif defined(TCCR2B) && defined(CS22)
-	sbi(TCCR2B, CS22);
-#else
-	#warning Timer 2 not finished (may not be present on this CPU)
-#endif
-
-	// configure timer 2 for phase correct pwm (8-bit)
-#if defined(TCCR2) && defined(WGM20)
-	sbi(TCCR2, WGM20);
-#elif defined(TCCR2A) && defined(WGM20)
-	sbi(TCCR2A, WGM20);
-#else
-	#warning Timer 2 not finished (may not be present on this CPU)
-#endif
+	//// set timer 2 prescale factor to 64
+//#if defined(TCCR2) && defined(CS22)
+	//sbi(TCCR2, CS22);
+//#elif defined(TCCR2B) && defined(CS22)
+	//sbi(TCCR2B, CS22);
+//#else
+	//#warning Timer 2 not finished (may not be present on this CPU)
+//#endif
+//
+	//// configure timer 2 for phase correct pwm (8-bit)
+//#if defined(TCCR2) && defined(WGM20)
+	//sbi(TCCR2, WGM20);
+//#elif defined(TCCR2A) && defined(WGM20)
+	//sbi(TCCR2A, WGM20);
+//#else
+	//#warning Timer 2 not finished (may not be present on this CPU)
+//#endif
 
 #if defined(TCCR3B) && defined(CS31) && defined(WGM30)
 	sbi(TCCR3B, CS31);		// set timer 3 prescale factor to 64
@@ -279,26 +279,26 @@ void init()
 	sbi(TCCR3A, WGM30);		// put timer 3 in 8-bit phase correct pwm mode
 #endif
 
-#if defined(TCCR4A) && defined(TCCR4B) && defined(TCCR4D) /* beginning of timer4 block for 32U4 and similar */
-	sbi(TCCR4B, CS42);		// set timer4 prescale factor to 64
-	sbi(TCCR4B, CS41);
-	sbi(TCCR4B, CS40);
-	sbi(TCCR4D, WGM40);		// put timer 4 in phase- and frequency-correct PWM mode	
-	sbi(TCCR4A, PWM4A);		// enable PWM mode for comparator OCR4A
-	sbi(TCCR4C, PWM4D);		// enable PWM mode for comparator OCR4D
-#else /* beginning of timer4 block for ATMEGA1280 and ATMEGA2560 */
-#if defined(TCCR4B) && defined(CS41) && defined(WGM40)
-	sbi(TCCR4B, CS41);		// set timer 4 prescale factor to 64
-	sbi(TCCR4B, CS40);
-	sbi(TCCR4A, WGM40);		// put timer 4 in 8-bit phase correct pwm mode
-#endif
-#endif /* end timer4 block for ATMEGA1280/2560 and similar */	
-
-#if defined(TCCR5B) && defined(CS51) && defined(WGM50)
-	sbi(TCCR5B, CS51);		// set timer 5 prescale factor to 64
-	sbi(TCCR5B, CS50);
-	sbi(TCCR5A, WGM50);		// put timer 5 in 8-bit phase correct pwm mode
-#endif
+//#if defined(TCCR4A) && defined(TCCR4B) && defined(TCCR4D) /* beginning of timer4 block for 32U4 and similar */
+	//sbi(TCCR4B, CS42);		// set timer4 prescale factor to 64
+	//sbi(TCCR4B, CS41);
+	//sbi(TCCR4B, CS40);
+	//sbi(TCCR4D, WGM40);		// put timer 4 in phase- and frequency-correct PWM mode	
+	//sbi(TCCR4A, PWM4A);		// enable PWM mode for comparator OCR4A
+	//sbi(TCCR4C, PWM4D);		// enable PWM mode for comparator OCR4D
+//#else /* beginning of timer4 block for ATMEGA1280 and ATMEGA2560 */
+//#if defined(TCCR4B) && defined(CS41) && defined(WGM40)
+	//sbi(TCCR4B, CS41);		// set timer 4 prescale factor to 64
+	//sbi(TCCR4B, CS40);
+	//sbi(TCCR4A, WGM40);		// put timer 4 in 8-bit phase correct pwm mode
+//#endif
+//#endif /* end timer4 block for ATMEGA1280/2560 and similar */	
+//
+//#if defined(TCCR5B) && defined(CS51) && defined(WGM50)
+	//sbi(TCCR5B, CS51);		// set timer 5 prescale factor to 64
+	//sbi(TCCR5B, CS50);
+	//sbi(TCCR5A, WGM50);		// put timer 5 in 8-bit phase correct pwm mode
+//#endif
 
 #if defined(ADCSRA)
 	// set a2d prescale factor to 128
