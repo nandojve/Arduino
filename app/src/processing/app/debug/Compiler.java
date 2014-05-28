@@ -637,6 +637,7 @@ public class Compiler implements MessageConsumer {
 
     List baseCommandCompiler = new ArrayList(Arrays.asList(new String[] {
       avrBasePath + "avr-gcc",
+      "-std=gnu11",
       "-c", // compile, don't link
       "-g", // include debugging info (so errors include line numbers)
       "-Os", // optimize for size
@@ -644,6 +645,7 @@ public class Compiler implements MessageConsumer {
       "-ffunction-sections", // place each function in its own section
       "-fdata-sections",
       "-mmcu=" + boardPreferences.get("build.mcu"),
+      "-DHAL_" + boardPreferences.get("build.mcu").toUpperCase(),
       "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
       "-MMD", // output dependancy info
       "-DUSB_VID=" + boardPreferences.get("build.vid"),
@@ -669,6 +671,7 @@ public class Compiler implements MessageConsumer {
     
     List baseCommandCompilerCPP = new ArrayList(Arrays.asList(new String[] {
       avrBasePath + "avr-g++",
+      "-std=gnu++11",
       "-c", // compile, don't link
       "-g", // include debugging info (so errors include line numbers)
       "-Os", // optimize for size
@@ -677,6 +680,7 @@ public class Compiler implements MessageConsumer {
       "-ffunction-sections", // place each function in its own section
       "-fdata-sections",
       "-mmcu=" + boardPreferences.get("build.mcu"),
+      "-DHAL_" + boardPreferences.get("build.mcu").toUpperCase(),
       "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
       "-MMD", // output dependancy info
       "-DUSB_VID=" + boardPreferences.get("build.vid"),
