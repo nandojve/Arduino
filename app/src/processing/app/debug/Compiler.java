@@ -229,6 +229,9 @@ public class Compiler implements MessageConsumer {
       "-o",
       buildPath + File.separator + primaryClassName + ".elf"
     }));
+    
+    if(boardPreferences.get("build.tuneLINK") != null)
+      baseCommandLinker.add(boardPreferences.get("build.tuneLINK"));
 
     for (File file : objectFiles) {
       baseCommandLinker.add(file.getAbsolutePath());
@@ -610,7 +613,14 @@ public class Compiler implements MessageConsumer {
       "-DARDUINO=" + Base.REVISION,
       "-DUSB_VID=" + boardPreferences.get("build.vid"),
       "-DUSB_PID=" + boardPreferences.get("build.pid"),
+      "-DHAL_" + boardPreferences.get("build.mcu").toUpperCase(),
     }));
+
+    if(boardPreferences.get("build.platform") != null)
+      baseCommandCompiler.add("-DPLATFORM_" + boardPreferences.get("build.platform").toUpperCase());
+
+    if(boardPreferences.get("build.tuneASM") != null)
+      baseCommandCompiler.add(boardPreferences.get("build.tuneASM"));
 
     for (int i = 0; i < includePaths.size(); i++) {
       baseCommandCompiler.add("-I" + (String) includePaths.get(i));
@@ -636,14 +646,20 @@ public class Compiler implements MessageConsumer {
       "-ffunction-sections", // place each function in its own section
       "-fdata-sections",
       "-mmcu=" + boardPreferences.get("build.mcu"),
-      "-DHAL_" + boardPreferences.get("build.mcu").toUpperCase(),
       "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
       "-MMD", // output dependancy info
       "-DUSB_VID=" + boardPreferences.get("build.vid"),
       "-DUSB_PID=" + boardPreferences.get("build.pid"),
-      "-DARDUINO=" + Base.REVISION, 
+      "-DARDUINO=" + Base.REVISION,
+      "-DHAL_" + boardPreferences.get("build.mcu").toUpperCase(),
     }));
+    
+    if(boardPreferences.get("build.platform") != null)
+      baseCommandCompiler.add("-DPLATFORM_" + boardPreferences.get("build.platform").toUpperCase());
 		
+    if(boardPreferences.get("build.tuneC") != null)
+      baseCommandCompiler.add(boardPreferences.get("build.tuneC"));
+    
     for (int i = 0; i < includePaths.size(); i++) {
       baseCommandCompiler.add("-I" + (String) includePaths.get(i));
     }
@@ -671,13 +687,19 @@ public class Compiler implements MessageConsumer {
       "-ffunction-sections", // place each function in its own section
       "-fdata-sections",
       "-mmcu=" + boardPreferences.get("build.mcu"),
-      "-DHAL_" + boardPreferences.get("build.mcu").toUpperCase(),
       "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
       "-MMD", // output dependancy info
       "-DUSB_VID=" + boardPreferences.get("build.vid"),
       "-DUSB_PID=" + boardPreferences.get("build.pid"),      
       "-DARDUINO=" + Base.REVISION,
+      "-DHAL_" + boardPreferences.get("build.mcu").toUpperCase(),
     }));
+
+    if(boardPreferences.get("build.platform") != null)
+      baseCommandCompilerCPP.add("-DPLATFORM_" + boardPreferences.get("build.platform").toUpperCase());
+
+    if(boardPreferences.get("build.tuneCPP") != null)
+      baseCommandCompilerCPP.add(boardPreferences.get("build.tuneCPP"));
 
     for (int i = 0; i < includePaths.size(); i++) {
       baseCommandCompilerCPP.add("-I" + (String) includePaths.get(i));
