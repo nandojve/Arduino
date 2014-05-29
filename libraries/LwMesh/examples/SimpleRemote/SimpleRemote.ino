@@ -11,21 +11,21 @@ extern "C" {
 #include "halGpio.h"
 
 /*- Definitions ------------------------------------------------------------*/
-//#if BOARD_TYPE == KITRFA1
-	//HAL_GPIO_PIN(LED0, G, 0);
-	//HAL_GPIO_PIN(LED1, G, 1);
-	//HAL_GPIO_PIN(LED2, G, 5);
-	//HAL_GPIO_PIN(BUTTON, G, 2);
-//
-//#elif BOARD_TYPE == WM100_DUINO
-	HAL_GPIO_PIN(LED0, E, 3);
-	HAL_GPIO_PIN(LED1, E, 4);
-	HAL_GPIO_PIN(LED2, E, 5);
-	HAL_GPIO_PIN(BUTTON, B, 6);
-//
-//#else
-	//#error "Board not defined!"
-//#endif
+#if defined( PLATFORM_KITRFA1 )
+  HAL_GPIO_PIN(LED0, G, 0);
+  HAL_GPIO_PIN(LED1, G, 1);
+  HAL_GPIO_PIN(LED2, G, 5);
+  HAL_GPIO_PIN(BUTTON, G, 2);
+  
+#elif defined( PLATFORM_WM100 )
+  HAL_GPIO_PIN(LED0, E, 3);
+  HAL_GPIO_PIN(LED1, E, 4);
+  HAL_GPIO_PIN(LED2, E, 5);
+  HAL_GPIO_PIN(BUTTON, B, 6);
+  
+#else
+  #error "Board not defined!"
+#endif
 
 /*- Types ------------------------------------------------------------------*/
 typedef enum AppState_t

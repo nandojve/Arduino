@@ -90,7 +90,7 @@ void PHY_Init(void)
 #ifdef PHY_ENABLE_RANDOM_NUMBER_GENERATOR
   CSMA_SEED_0_REG = (uint8_t)PHY_RandomReq();
 #endif
-#if defined(PLATFORM_WM100) || defined(PLATFORM_WM100_DUINO)
+#if defined(PLATFORM_WM100)
 #if (ANTENNA_DIVERSITY == 1)
 	ANT_DIV_REG_s.antCtrl = 2;
 	RX_CTRL_REG_s.pdtThres = 0x03;
@@ -157,7 +157,7 @@ void PHY_Sleep(void)
   phyTrxSetState(TRX_CMD_TRX_OFF);
   TRXPR_REG_s.slptr = 1;
   phyState = PHY_STATE_SLEEP;
-#if defined(PLATFORM_WM100) || defined(PLATFORM_WM100_DUINO)
+#if defined(PLATFORM_WM100)
 	#if (ANTENNA_DIVERSITY == 1)
 		ANT_DIV_REG_s.antExtSwEn = 0;
 		ANT_DIV_REG_s.antDivEn = 0;
@@ -274,7 +274,7 @@ static void phySetRxState(void)
 *****************************************************************************/
 static void phyTrxSetState(uint8_t state)
 {
-  #if defined(PLATFORM_WM100) || defined(PLATFORM_WM100_DUINO)
+  #if defined(PLATFORM_WM100)
 	if(phyState == PHY_STATE_SLEEP)
 	{
 #if (ANTENNA_DIVERSITY == 1)
