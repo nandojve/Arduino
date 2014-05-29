@@ -51,7 +51,7 @@
 #include "halGpio.h"
 
 /*- Definitions ------------------------------------------------------------*/
-#if defined(PLATFORM_WM100_DUINO)
+#if defined(PLATFORM_WM100)
 	#define ANTENNA_DIVERSITY 1
 	#define EXT_RF_FRONT_END_CTRL
 	HAL_GPIO_PIN(RF_FRONT_END_EN, G, 5);
@@ -65,7 +65,7 @@
 *****************************************************************************/
 INLINE void HAL_BoardInit(void)
 {
-#if defined(PLATFORM_WM100_DUINO)
+#if defined(PLATFORM_WM100)
   HAL_GPIO_RF_FRONT_END_EN_out();
   HAL_GPIO_RF_FRONT_END_EN_set();
 
