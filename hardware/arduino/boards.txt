@@ -581,6 +581,11 @@ kitrfa1_duino.build.mcu=atmega128rfa1
 kitrfa1_duino.build.f_cpu=16000000L
 kitrfa1_duino.build.core=wmduino
 kitrfa1_duino.build.variant=kitrfa1
+kitrfa1_duino.build.platform=KITRFA1
+kitrfa1_duino.build.tuneC=
+kitrfa1_duino.build.tuneCPP=
+kitrfa1_duino.build.tuneASM=
+kitrfa1_duino.build.tuneLINK=
 
 ##############################################################
 
@@ -598,6 +603,11 @@ wm101_duino.build.mcu=atmega128rfa1
 wm101_duino.build.f_cpu=16000000L
 wm101_duino.build.core=wmduino
 wm101_duino.build.variant=wm100
+wm101_duino.build.platform=WM100
+wm101_duino.build.tuneC=
+wm101_duino.build.tuneCPP=
+wm101_duino.build.tuneASM=
+wm101_duino.build.tuneLINK=
 
 ##############################################################
 
@@ -615,5 +625,10 @@ wm102_duino.build.mcu=atmega256rfr2
 wm102_duino.build.f_cpu=16000000L
 wm102_duino.build.core=wmduino
 wm102_duino.build.variant=wm100
+wm102_duino.build.platform=WM100
+wm102_duino.build.tuneC=
+wm102_duino.build.tuneCPP=
+wm102_duino.build.tuneASM=
+wm102_duino.build.tuneLINK=
 
 ##############################################################
