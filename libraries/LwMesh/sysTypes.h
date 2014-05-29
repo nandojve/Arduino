@@ -178,7 +178,7 @@ extern "C" {
 #elif defined(HAL_ATSAM4LC4B)
 
 #else
-  #error Unknown HAL
+  #error "Undefined Hardware Abstraction Layer (HAL)"
 #endif
 
 #ifdef __cplusplus
