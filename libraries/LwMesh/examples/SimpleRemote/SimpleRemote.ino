@@ -8,24 +8,20 @@ extern "C" {
 #include "phy.h"
 #include "sys.h"
 #include "nwk.h"
-#include "halGpio.h"
 
 /*- Definitions ------------------------------------------------------------*/
-#if defined( PLATFORM_KITRFA1 )
-  HAL_GPIO_PIN(LED0, G, 0);
-  HAL_GPIO_PIN(LED1, G, 1);
-  HAL_GPIO_PIN(LED2, G, 5);
-  HAL_GPIO_PIN(BUTTON, G, 2);
-  
-#elif defined( PLATFORM_WM100 )
-  HAL_GPIO_PIN(LED0, E, 3);
-  HAL_GPIO_PIN(LED1, E, 4);
-  HAL_GPIO_PIN(LED2, E, 5);
-  HAL_GPIO_PIN(BUTTON, B, 6);
-  
+#if defined(PLATFORM_KITRFA1)
+	HAL_GPIO_PIN(BUTTON, G, 2);
+
+#elif defined(PLATFORM_WM100)
+	HAL_GPIO_PIN(BUTTON, B, 6);
+
 #else
   #error "Board not defined!"
 #endif
+
+#define APP_LED 0
+#define SEND_LED 1
 
 /*- Types ------------------------------------------------------------------*/
 typedef enum AppState_t
@@ -82,9 +78,9 @@ bool rx_frame(NWK_DataInd_t *ind)
   AppMessage_t *msg = (AppMessage_t *)ind->data;
 
   if (msg->buttonState)
-    HAL_GPIO_LED1_set();
+    HAL_LedOn(SEND_LED);
   else
-    HAL_GPIO_LED1_clr();
+    HAL_LedOff(SEND_LED);
 
   return true;
 }
@@ -101,14 +97,8 @@ void app_task(void)
       HAL_GPIO_BUTTON_in();
       HAL_GPIO_BUTTON_pullup();
 
-      HAL_GPIO_LED0_out();
-      HAL_GPIO_LED0_clr();
-
-      HAL_GPIO_LED1_out();
-      HAL_GPIO_LED1_set();
-
-      HAL_GPIO_LED2_out();
-      HAL_GPIO_LED2_set();
+      HAL_LedInit();
+	  HAL_LedOn(APP_LED);
 
       appState = APP_STATE_IDLE;
     } break;
