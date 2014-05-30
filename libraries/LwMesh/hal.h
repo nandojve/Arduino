@@ -51,6 +51,16 @@ extern "C" {
 /*- Includes ---------------------------------------------------------------*/
 #include "sysTypes.h"
 
+#if defined(HAL_ATMEGA128RFA1)
+	#include "hal/atmega128rfa1/halLed.h"
+	#include "hal/atmega128rfa1/halBoard.h"
+#elif defined(HAL_ATMEGA256RFR2)
+	#include "hal/atmega256rfr2/halLed.h"
+	#include "hal/atmega256rfr2/halBoard.h"
+#else
+	#error "Undefined Hardware Abstraction Layer (HAL)"
+#endif
+
 /*- Prototypes -------------------------------------------------------------*/
 void HAL_Init(void);
 void HAL_Delay(uint8_t us);
