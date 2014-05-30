@@ -52,10 +52,15 @@
 #include "halGpio.h"
 
 /*- Definitions ------------------------------------------------------------*/
-#if defined(PLATFORM_WM100_DUINO) 
-  HAL_GPIO_PIN(LED0, E, 3);
-  HAL_GPIO_PIN(LED1, E, 4);
-  HAL_GPIO_PIN(LED2, E, 5);
+#if defined(PLATFORM_KITRFA1)
+  HAL_GPIO_PIN(LED0, G, 0);
+  HAL_GPIO_PIN(LED1, G, 1);
+  HAL_GPIO_PIN(LED2, G, 5);
+
+#elif defined(PLATFORM_WM100)
+	HAL_GPIO_PIN(LED0, E, 3);
+	HAL_GPIO_PIN(LED1, E, 4);
+	HAL_GPIO_PIN(LED2, E, 5);
 
 #else
   #error Unknown platform
