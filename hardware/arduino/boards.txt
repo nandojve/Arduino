@@ -589,7 +589,7 @@ kitrfa1_duino.build.tuneLINK=
 
 ##############################################################
 
-wm101_duino.name=WM-101
+wm101_duino.name=WM-100-DUINO 128RFA1
 wm101_duino.upload.protocol=avrxprog
 wm101_duino.upload.speed=115200
 wm101_duino.bootloader.low_fuses=0xF6
@@ -611,7 +611,7 @@ wm101_duino.build.tuneLINK=
 
 ##############################################################
 
-wm102_duino.name=WM-102
+wm102_duino.name=WM-100-DUINO 256RFR2
 wm102_duino.upload.protocol=avrxprog
 wm102_duino.upload.speed=115200
 wm102_duino.bootloader.low_fuses=0xF6
