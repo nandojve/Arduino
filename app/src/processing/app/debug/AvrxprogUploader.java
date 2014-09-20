@@ -43,6 +43,7 @@ public class AvrxprogUploader extends Uploader
         commandDownloader.add("-d" + boardPreferences.get("build.mcu"));
         commandDownloader.add("-c" + Preferences.get("serial.port"));
         commandDownloader.add("-if" + buildPath + File.separator + className + ".hex");
+        commandDownloader.add("-R");
         commandDownloader.add("-e");
         commandDownloader.add("-pf");
         commandDownloader.add("-vf");
