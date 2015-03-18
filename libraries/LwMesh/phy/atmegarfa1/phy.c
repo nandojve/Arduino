@@ -91,8 +91,9 @@ void PHY_Init(void)
   CSMA_SEED_0_REG = (uint8_t)PHY_RandomReq();
 #endif
 #if defined(PLATFORM_WM100)
+	ANT_DIV_REG_s.antCtrl = ANTENNA_DEFAULT;
+
 #if (ANTENNA_DIVERSITY == 1)
-	ANT_DIV_REG_s.antCtrl = 2;
 	RX_CTRL_REG_s.pdtThres = 0x03;
 	ANT_DIV_REG_s.antDivEn = 1;
 	ANT_DIV_REG_s.antExtSwEn = 1;
