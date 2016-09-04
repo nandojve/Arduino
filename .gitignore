@@ -24,3 +24,5 @@ test-bin
 build/windows/launch4j-*
 build/windows/launcher/launch4j
 build/windows/WinAVR-*.zip
+build/windows/arduino-0107-windows.zip
+build/windows/arduino-0107-windows-expert.zip
