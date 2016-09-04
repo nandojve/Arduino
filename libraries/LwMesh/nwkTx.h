@@ -3,7 +3,7 @@
  *
  * \brief Transmit routines interface
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkTx.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_TX_H_
@@ -59,16 +61,16 @@ extern "C" {
 #include "nwkFrame.h"
 
 /*- Types ------------------------------------------------------------------*/
-enum
-{
-  NWK_TX_CONTROL_BROADCAST_PAN_ID = 1 << 0,
-  NWK_TX_CONTROL_ROUTING          = 1 << 1,
-  NWK_TX_CONTROL_DIRECT_LINK      = 1 << 2,
+enum {
+	NWK_TX_CONTROL_BROADCAST_PAN_ID = 1 << 0,
+	NWK_TX_CONTROL_ROUTING          = 1 << 1,
+	NWK_TX_CONTROL_DIRECT_LINK      = 1 << 2,
 };
 
 /*- Prototypes -------------------------------------------------------------*/
 void nwkTxInit(void);
 void nwkTxFrame(NwkFrame_t *frame);
+void nwkTxBeaconFrame(NwkFrame_t *frame);
 void nwkTxBroadcastFrame(NwkFrame_t *frame);
 bool nwkTxAckReceived(NWK_DataInd_t *ind);
 void nwkTxConfirm(NwkFrame_t *frame, uint8_t status);
@@ -79,4 +81,4 @@ void nwkTxTaskHandler(void);
 }
 #endif
 
-#endif // _NWK_TX_H_
+#endif /* _NWK_TX_H_ */

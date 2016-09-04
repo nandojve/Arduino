@@ -3,7 +3,7 @@
  *
  * \brief Frame buffers management interface
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkFrame.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_FRAME_H_
@@ -59,71 +61,84 @@ extern "C" {
 #define NWK_FRAME_MAX_PAYLOAD_SIZE   127
 
 /*- Types ------------------------------------------------------------------*/
-typedef struct PACK NwkFrameHeader_t
-{
-  uint16_t    macFcf;
-  uint8_t     macSeq;
-  uint16_t    macDstPanId;
-  uint16_t    macDstAddr;
-  uint16_t    macSrcAddr;
+COMPILER_PACK_SET(1)
+typedef struct  NwkFrameHeader_t {
+	uint16_t macFcf;
+	uint8_t macSeq;
+	uint16_t macDstPanId;
+	uint16_t macDstAddr;
+	uint16_t macSrcAddr;
 
-  struct PACK
-  {
-    uint8_t   ackRequest : 1;
-    uint8_t   security   : 1;
-    uint8_t   linkLocal  : 1;
-    uint8_t   multicast  : 1;
-    uint8_t   reserved   : 4;
-  }           nwkFcf;
-  uint8_t     nwkSeq;
-  uint16_t    nwkSrcAddr;
-  uint16_t    nwkDstAddr;
-  struct PACK
-  {
-    uint8_t   nwkSrcEndpoint : 4;
-    uint8_t   nwkDstEndpoint : 4;
-  };
+	struct {
+		uint8_t ackRequest : 1;
+		uint8_t security   : 1;
+		uint8_t linkLocal  : 1;
+		uint8_t multicast  : 1;
+		uint8_t beacon     : 1;
+		uint8_t reserved   : 3;
+	} nwkFcf;
+	uint8_t nwkSeq;
+	uint16_t nwkSrcAddr;
+	uint16_t nwkDstAddr;
+	struct {
+		uint8_t nwkSrcEndpoint : 4;
+		uint8_t nwkDstEndpoint : 4;
+	};
 } NwkFrameHeader_t;
 
-typedef struct PACK NwkFrameMulticastHeader_t
-{
-  uint16_t    nonMemberRadius    : 4;
-  uint16_t    maxNonMemberRadius : 4;
-  uint16_t    memberRadius       : 4;
-  uint16_t    maxMemberRadius    : 4;
+typedef struct  NwkFrameBeaconHeader_t {
+	uint16_t macFcf;
+	uint8_t macSeq;
+	uint16_t macSrcPanId;
+	uint16_t macSrcAddr;
+	struct
+	{
+		uint16_t beaconOrder			: 4;
+		uint16_t superframeOrder		: 4;
+		uint16_t finalCAPslot			: 4;
+		uint16_t BatteryLifeExtension	: 1;
+		uint16_t Reserved				: 1;
+		uint16_t PANCoordinator			: 1;
+		uint16_t AssociationPermit		: 1;
+	} macSFS;
+	uint8_t macGTS;
+	uint8_t macPending;
+} NwkFrameBeaconHeader_t;
+
+typedef struct  NwkFrameMulticastHeader_t {
+	uint16_t nonMemberRadius    : 4;
+	uint16_t maxNonMemberRadius : 4;
+	uint16_t memberRadius       : 4;
+	uint16_t maxMemberRadius    : 4;
 } NwkFrameMulticastHeader_t;
 
-typedef struct NwkFrame_t
-{
-  uint8_t      state;
-  uint8_t      size;
+typedef struct NwkFrame_t {
+	uint8_t state;
+	uint8_t size;
 
-  union
-  {
-    NwkFrameHeader_t header;
-    uint8_t          data[NWK_FRAME_MAX_PAYLOAD_SIZE];
-  };
+	union {
+		NwkFrameHeader_t header;
+		NwkFrameBeaconHeader_t beacon;
+		uint8_t data[NWK_FRAME_MAX_PAYLOAD_SIZE];
+	};
 
-  uint8_t      *payload;
+	uint8_t *payload;
 
-  union
-  {
-    struct
-    {
-      uint8_t  lqi;
-      int8_t   rssi;
-    } rx;
+	union {
+		struct {
+			uint8_t lqi;
+			int8_t rssi;
+		} rx;
 
-    struct
-    {
-      uint8_t  status;
-      uint16_t timeout;
-      uint8_t  control;
-      void     (*confirm)(struct NwkFrame_t *frame);
-    } tx;
-  };
+		struct {
+			uint8_t status;
+			uint16_t timeout;
+			uint8_t control;
+			void (*confirm)(struct NwkFrame_t *frame);
+		} tx;
+	};
 } NwkFrame_t;
-
+COMPILER_PACK_RESET()
 /*- Prototypes -------------------------------------------------------------*/
 void nwkFrameInit(void);
 NwkFrame_t *nwkFrameAlloc(void);
@@ -137,11 +152,11 @@ void nwkFrameCommandInit(NwkFrame_t *frame);
 *****************************************************************************/
 static inline uint8_t nwkFramePayloadSize(NwkFrame_t *frame)
 {
-  return frame->size - (frame->payload - frame->data);
+	return frame->size - (frame->payload - frame->data);
 }
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // _NWK_FRAME_H_
+#endif /* _NWK_FRAME_H_ */

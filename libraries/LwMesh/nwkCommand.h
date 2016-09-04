@@ -3,7 +3,7 @@
  *
  * \brief Network commands interface
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkCommand.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_COMMAND_H_
@@ -56,50 +58,45 @@ extern "C" {
 #include "sysTypes.h"
 
 /*- Types ------------------------------------------------------------------*/
-enum
-{
-  NWK_COMMAND_ACK                 = 0x00,
-  NWK_COMMAND_ROUTE_ERROR         = 0x01,
-  NWK_COMMAND_ROUTE_REQUEST       = 0x02,
-  NWK_COMMAND_ROUTE_REPLY         = 0x03,
+enum {
+	NWK_COMMAND_ACK                 = 0x00,
+	NWK_COMMAND_ROUTE_ERROR         = 0x01,
+	NWK_COMMAND_ROUTE_REQUEST       = 0x02,
+	NWK_COMMAND_ROUTE_REPLY         = 0x03,
 };
-
-typedef struct PACK NwkCommandAck_t
-{
-  uint8_t    id;
-  uint8_t    seq;
-  uint8_t    control;
+COMPILER_PACK_SET(1)
+typedef struct  NwkCommandAck_t {
+	uint8_t id;
+	uint8_t seq;
+	uint8_t control;
 } NwkCommandAck_t;
 
-typedef struct PACK NwkCommandRouteError_t
-{
-  uint8_t    id;
-  uint16_t   srcAddr;
-  uint16_t   dstAddr;
-  uint8_t    multicast;
+typedef struct  NwkCommandRouteError_t {
+	uint8_t id;
+	uint16_t srcAddr;
+	uint16_t dstAddr;
+	uint8_t multicast;
 } NwkCommandRouteError_t;
 
-typedef struct PACK NwkCommandRouteRequest_t
-{
-  uint8_t    id;
-  uint16_t   srcAddr;
-  uint16_t   dstAddr;
-  uint8_t    multicast;
-  uint8_t    linkQuality;
+typedef struct  NwkCommandRouteRequest_t {
+	uint8_t id;
+	uint16_t srcAddr;
+	uint16_t dstAddr;
+	uint8_t multicast;
+	uint8_t linkQuality;
 } NwkCommandRouteRequest_t;
 
-typedef struct PACK NwkCommandRouteReply_t
-{
-  uint8_t    id;
-  uint16_t   srcAddr;
-  uint16_t   dstAddr;
-  uint8_t    multicast;
-  uint8_t    forwardLinkQuality;
-  uint8_t    reverseLinkQuality;
+typedef struct  NwkCommandRouteReply_t {
+	uint8_t id;
+	uint16_t srcAddr;
+	uint16_t dstAddr;
+	uint8_t multicast;
+	uint8_t forwardLinkQuality;
+	uint8_t reverseLinkQuality;
 } NwkCommandRouteReply_t;
-
+COMPILER_PACK_RESET()
 #ifdef __cplusplus
 }
 #endif
 
-#endif // _NWK_COMMAND_H_
+#endif /* _NWK_COMMAND_H_ */

@@ -3,7 +3,7 @@
  *
  * \brief NWK_DataReq() interface
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkDataReq.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_DATA_REQ_H_
@@ -58,38 +60,37 @@ extern "C" {
 #include "sysTypes.h"
 
 /*- Types ------------------------------------------------------------------*/
-enum
-{
-  NWK_OPT_ACK_REQUEST          = 1 << 0,
-  NWK_OPT_ENABLE_SECURITY      = 1 << 1,
-  NWK_OPT_BROADCAST_PAN_ID     = 1 << 2,
-  NWK_OPT_LINK_LOCAL           = 1 << 3,
-  NWK_OPT_MULTICAST            = 1 << 4,
+enum {
+	NWK_OPT_ACK_REQUEST          = 1 << 0,
+	NWK_OPT_ENABLE_SECURITY      = 1 << 1,
+	NWK_OPT_BROADCAST_PAN_ID     = 1 << 2,
+	NWK_OPT_LINK_LOCAL           = 1 << 3,
+	NWK_OPT_MULTICAST            = 1 << 4,
+	NWK_OPT_BEACON               = 1 << 5,
 };
 
-typedef struct NWK_DataReq_t
-{
-  // service fields
-  void         *next;
-  void         *frame;
-  uint8_t      state;
+typedef struct NWK_DataReq_t {
+	/* service fields */
+	void *next;
+	void *frame;
+	uint8_t state;
 
-  // request parameters
-  uint16_t     dstAddr;
-  uint8_t      dstEndpoint;
-  uint8_t      srcEndpoint;
-  uint8_t      options;
+	/* request parameters */
+	uint16_t dstAddr;
+	uint8_t dstEndpoint;
+	uint8_t srcEndpoint;
+	uint8_t options;
 #ifdef NWK_ENABLE_MULTICAST
-  uint8_t      memberRadius;
-  uint8_t      nonMemberRadius;
+	uint8_t memberRadius;
+	uint8_t nonMemberRadius;
 #endif
-  uint8_t      *data;
-  uint8_t      size;
-  void         (*confirm)(struct NWK_DataReq_t *req);
+	uint8_t *data;
+	uint8_t size;
+	void (*confirm)(struct NWK_DataReq_t *req);
 
-  // confirmation parameters
-  uint8_t      status;
-  uint8_t      control;
+	/* confirmation parameters */
+	uint8_t status;
+	uint8_t control;
 } NWK_DataReq_t;
 
 /*- Prototypes -------------------------------------------------------------*/
@@ -102,4 +103,4 @@ void nwkDataReqTaskHandler(void);
 }
 #endif
 
-#endif // _NWK_DATA_REQ_H_
+#endif /* _NWK_DATA_REQ_H_ */

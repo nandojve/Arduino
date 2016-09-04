@@ -78,6 +78,7 @@ enum
 /*- Prototypes -------------------------------------------------------------*/
 void PHY_Init(void);
 void PHY_SetRxState(bool rx);
+void PHY_SetPage(uint8_t page);
 void PHY_SetChannel(uint8_t channel);
 void PHY_SetPanId(uint16_t panId);
 void PHY_SetShortAddr(uint16_t addr);
@@ -100,5 +101,9 @@ void PHY_EncryptReq(uint8_t *text, uint8_t *key);
 #ifdef PHY_ENABLE_ENERGY_DETECTION
 int8_t PHY_EdReq(void);
 #endif
+
+void PHY_SetIEEEAddr(uint8_t *ieee_addr);
+void PHY_SetTdmaMode(bool mode);
+void PHY_SetPromiscuousMode(bool mode);
 
 #endif // _PHY_H_

@@ -91,9 +91,8 @@ void PHY_Init(void)
   CSMA_SEED_0_REG = (uint8_t)PHY_RandomReq();
 #endif
 #if defined(PLATFORM_WM100)
-	ANT_DIV_REG_s.antCtrl = ANTENNA_DEFAULT;
-
 #if (ANTENNA_DIVERSITY == 1)
+	ANT_DIV_REG_s.antCtrl = 2;
 	RX_CTRL_REG_s.pdtThres = 0x03;
 	ANT_DIV_REG_s.antDivEn = 1;
 	ANT_DIV_REG_s.antExtSwEn = 1;
@@ -103,6 +102,50 @@ void PHY_Init(void)
 	HAL_GPIO_RF_FRONT_END_EN_set();
 #endif // EXT_RF_FRONT_END_CTRL
 #endif // PLATFORM_WM100
+}
+void PHY_SetTdmaMode(bool mode)
+{
+	if(mode)
+	{
+		XAH_CTRL_0_REG_s.maxFrameRetries = 0;
+		XAH_CTRL_0_REG_s.maxCsmaRetries = 7;
+
+		CSMA_SEED_1_REG_s.aackDisAck = 1;	// Disable ACK even if requested
+	}
+	else
+	{
+		XAH_CTRL_0_REG_s.maxFrameRetries = 3;
+		XAH_CTRL_0_REG_s.maxCsmaRetries = 4;
+
+		CSMA_SEED_1_REG_s.aackDisAck = 0;
+	}
+}
+void PHY_SetPromiscuousMode(bool mode)
+{
+	uint8_t ieee_address[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+	if(mode)
+	{
+		PHY_SetShortAddr(0);
+		PHY_SetPanId(0);
+		PHY_SetIEEEAddr(ieee_address);
+
+// AACK_UPLD_RES_FT = 1, AACK_FLT_RES_FT = 0:
+//	Any non-corrupted frame with a reserved frame type is indicated by a
+//	TRX24_RX_END interrupt. No further address filtering is applied on those frames.
+//	A TRX24_AMI interrupt is never generated and the acknowledgment subfield is
+//	ignored.
+
+		XAH_CTRL_1_REG_s.aackPromMode = 1;	// Enable promiscuous mode
+		XAH_CTRL_1_REG_s.aackUpldResFt = 1;	// Enable reserved frame type reception
+		XAH_CTRL_1_REG_s.aackFltrResFt = 0;	// Disable filter of reserved frame types
+		CSMA_SEED_1_REG_s.aackDisAck = 1;		// Disable generation of acknowledgment
+	}
+	else
+	{
+		XAH_CTRL_1_REG = 0;
+		CSMA_SEED_1_REG_s.aackDisAck = 0;
+	}
 }
 
 /*************************************************************************//**
@@ -120,6 +163,50 @@ void PHY_SetChannel(uint8_t channel)
   PHY_CC_CCA_REG_s.channel = channel;
 }
 
+/*************************************************************************//**
+*****************************************************************************/
+void PHY_SetPage(uint8_t page)
+{
+	switch(page)
+	{
+		case 0:		/* compliant O-QPSK */
+		{
+			TRX_CTRL_2_REG_s.oqpskDataRate = 0;	// RATE_250_KBPS
+			/* Apply compliant ACK timing */
+			XAH_CTRL_1_REG_s.aackAckTime = 0;	// ACK_TIME_12_SYMBOLS
+			/* Use full sensitivity */
+			RX_SYN_REG_s.rxPdtLevel = 0x00;
+			break;
+		}
+		case 2:		/* non-compliant OQPSK mode 1 */
+		{
+			TRX_CTRL_2_REG_s.oqpskDataRate = 1;	// RATE_500_KBPS
+			/* Apply compliant ACK timing */
+			XAH_CTRL_1_REG_s.aackAckTime = 1;	// ACK_TIME_2_SYMBOLS
+			/* Use full sensitivity */
+			RX_SYN_REG_s.rxPdtLevel = 0x00;
+			break;
+		}
+		case 16:	/* non-compliant OQPSK mode 2 */
+		{
+			TRX_CTRL_2_REG_s.oqpskDataRate = 2;	// RATE_1_MBPS
+			/* Apply compliant ACK timing */
+			XAH_CTRL_1_REG_s.aackAckTime = 1;	// ACK_TIME_2_SYMBOLS
+			/* Use full sensitivity */
+			RX_SYN_REG_s.rxPdtLevel = 0x00;
+			break;
+		}
+		case 17:	/* non-compliant OQPSK mode 3 */
+		{
+			TRX_CTRL_2_REG_s.oqpskDataRate = 3;	// RATE_2_MBPS
+			/* Apply compliant ACK timing */
+			XAH_CTRL_1_REG_s.aackAckTime = 1;	// ACK_TIME_2_SYMBOLS
+			/* Use reduced sensitivity for 2Mbit mode */
+			RX_SYN_REG_s.rxPdtLevel = 0x01;
+			break;
+		}
+	}
+}
 /*************************************************************************//**
 *****************************************************************************/
 void PHY_SetPanId(uint16_t panId)
@@ -294,6 +381,21 @@ static void phyTrxSetState(uint8_t state)
 
   TRX_STATE_REG = state;
   while (state != TRX_STATUS_REG_s.trxStatus);
+}
+
+/*************************************************************************//**
+*****************************************************************************/
+void PHY_SetIEEEAddr(uint8_t *ieee_addr)
+{
+	uint8_t *ptr_to_reg = ieee_addr;
+	IEEE_ADDR_0_REG = *ptr_to_reg++;
+	IEEE_ADDR_1_REG = *ptr_to_reg++;
+	IEEE_ADDR_2_REG = *ptr_to_reg++;
+	IEEE_ADDR_3_REG = *ptr_to_reg++;
+	IEEE_ADDR_4_REG = *ptr_to_reg++;
+	IEEE_ADDR_5_REG = *ptr_to_reg++;
+	IEEE_ADDR_6_REG = *ptr_to_reg++;
+	IEEE_ADDR_7_REG = *ptr_to_reg;
 }
 
 /*************************************************************************//**

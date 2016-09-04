@@ -3,7 +3,7 @@
  *
  * \brief Receive routines interface
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkRx.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_RX_H_
@@ -57,28 +59,27 @@ extern "C" {
 #include "nwkFrame.h"
 
 /*- Types ------------------------------------------------------------------*/
-enum
-{
-  NWK_IND_OPT_ACK_REQUESTED     = 1 << 0,
-  NWK_IND_OPT_SECURED           = 1 << 1,
-  NWK_IND_OPT_BROADCAST         = 1 << 2,
-  NWK_IND_OPT_LOCAL             = 1 << 3,
-  NWK_IND_OPT_BROADCAST_PAN_ID  = 1 << 4,
-  NWK_IND_OPT_LINK_LOCAL        = 1 << 5,
-  NWK_IND_OPT_MULTICAST         = 1 << 6,
+enum {
+	NWK_IND_OPT_ACK_REQUESTED     = 1 << 0,
+	NWK_IND_OPT_SECURED           = 1 << 1,
+	NWK_IND_OPT_BROADCAST         = 1 << 2,
+	NWK_IND_OPT_LOCAL             = 1 << 3,
+	NWK_IND_OPT_BROADCAST_PAN_ID  = 1 << 4,
+	NWK_IND_OPT_LINK_LOCAL        = 1 << 5,
+	NWK_IND_OPT_MULTICAST         = 1 << 6,
+	NWK_IND_OPT_BEACON			  = 1 << 7,
 };
 
-typedef struct NWK_DataInd_t
-{
-  uint16_t     srcAddr;
-  uint16_t     dstAddr;
-  uint8_t      srcEndpoint;
-  uint8_t      dstEndpoint;
-  uint8_t      options;
-  uint8_t      *data;
-  uint8_t      size;
-  uint8_t      lqi;
-  int8_t       rssi;
+typedef struct NWK_DataInd_t {
+	uint16_t srcAddr;
+	uint16_t dstAddr;
+	uint8_t srcEndpoint;
+	uint8_t dstEndpoint;
+	uint8_t options;
+	uint8_t *data;
+	uint8_t size;
+	uint8_t lqi;
+	int8_t rssi;
 } NWK_DataInd_t;
 
 /*- Prototypes -------------------------------------------------------------*/
@@ -86,6 +87,7 @@ void NWK_SetAckControl(uint8_t control);
 
 #ifdef NWK_ENABLE_ADDRESS_FILTER
 bool NWK_FilterAddress(uint16_t addr, uint8_t *lqi);
+
 #endif
 
 void nwkRxInit(void);
@@ -95,5 +97,4 @@ void nwkRxTaskHandler(void);
 #ifdef __cplusplus
 }
 #endif
-
-#endif // _NWK_RX_H_
+#endif /* _NWK_RX_H_ */

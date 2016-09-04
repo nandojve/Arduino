@@ -3,7 +3,7 @@
  *
  * \brief Network layer security interface
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkSecurity.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_SECURITY_H_
@@ -70,10 +72,9 @@ void nwkSecurityInit(void);
 void nwkSecurityProcess(NwkFrame_t *frame, bool encrypt);
 void nwkSecurityTaskHandler(void);
 
-#endif // NWK_ENABLE_SECURITY
-
+#endif /* NWK_ENABLE_SECURITY */
 #ifdef __cplusplus
 }
 #endif
 
-#endif // _NWK_SECURITY_H_
+#endif /* _NWK_SECURITY_H_ */

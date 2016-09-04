@@ -44,13 +44,26 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
+#define BI_COEF												(8)
+#define SD_COEF												(6)
+#define FINAL_CAP_SLOT										(1)
+#define SYMBOL_TIME											0.000016						// s
+#define ABASEFRAMEDURATION									(960ul)							// Symbols
+#define BI_EXPO												(256)
+#define SD_EXPO												(50)
+#define BEACON_INTERVAL_BI									(ABASEFRAMEDURATION * BI_EXPO)	// 4s
+#define SUPERFRAME_DURATION_SD								(ABASEFRAMEDURATION * SD_EXPO)	// 0.768s
+#define TDMA_SLOT_PERIOD									0.05							// s
+#define TDMA_FIRST_SLOT										(3125)							// Symbols
+#define TDMA_BATTERY_EXTENSION								1
+
 #define PHY_ENABLE_RANDOM_NUMBER_GENERATOR
 #define PHY_ENABLE_ENERGY_DETECTION
 #define PHY_ENABLE_AES_MODULE
 
 #define SYS_SECURITY_MODE                   0
 
-#define NWK_BUFFERS_AMOUNT                  10
+#define NWK_BUFFERS_AMOUNT                  20
 #define NWK_DUPLICATE_REJECTION_TABLE_SIZE  50
 #define NWK_DUPLICATE_REJECTION_TTL         2000 // ms
 #define NWK_ROUTE_TABLE_SIZE                100

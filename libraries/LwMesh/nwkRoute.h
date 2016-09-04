@@ -3,7 +3,7 @@
  *
  * \brief Routing interface
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkRoute.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_ROUTE_H_
@@ -64,16 +66,15 @@ extern "C" {
 #ifdef NWK_ENABLE_ROUTING
 
 /*- Types ------------------------------------------------------------------*/
-typedef struct NWK_RouteTableEntry_t
-{
-  uint8_t  fixed     : 1;
-  uint8_t  multicast : 1;
-  uint8_t  reserved  : 2;
-  uint8_t  score     : 4;
-  uint16_t dstAddr;
-  uint16_t nextHopAddr;
-  uint8_t  rank;
-  uint8_t  lqi;
+typedef struct NWK_RouteTableEntry_t {
+	uint8_t fixed     : 1;
+	uint8_t multicast : 1;
+	uint8_t reserved  : 2;
+	uint8_t score     : 4;
+	uint16_t dstAddr;
+	uint16_t nextHopAddr;
+	uint8_t rank;
+	uint8_t lqi;
 } NWK_RouteTableEntry_t;
 
 /*- Prototypes -------------------------------------------------------------*/
@@ -90,12 +91,13 @@ void nwkRouteFrameSent(NwkFrame_t *frame);
 void nwkRoutePrepareTx(NwkFrame_t *frame);
 void nwkRouteFrame(NwkFrame_t *frame);
 bool nwkRouteErrorReceived(NWK_DataInd_t *ind);
-void nwkRouteUpdateEntry(uint16_t dst, uint8_t multicast, uint16_t nextHop, uint8_t lqi);
+void nwkRouteUpdateEntry(uint16_t dst, uint8_t multicast, uint16_t nextHop,
+		uint8_t lqi);
 
-#endif // NWK_ENABLE_ROUTING
+#endif /* NWK_ENABLE_ROUTING */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // _NWK_ROUTE_H_
+#endif /* _NWK_ROUTE_H_ */

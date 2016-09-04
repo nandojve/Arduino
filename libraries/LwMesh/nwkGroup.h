@@ -3,7 +3,7 @@
  *
  * \brief Multicast group management implementation
  *
- * Copyright (C) 2012-2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,11 +37,13 @@
  *
  * \asf_license_stop
  *
- * Modification and other use of this code is subject to Atmel's Limited
- * License Agreement (license.txt).
  *
- * $Id: nwkGroup.h 9267 2014-03-18 21:46:19Z ataradov $
+ */
+
+/*
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
+ * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 #ifndef _NWK_GROUP_H_
@@ -67,10 +69,9 @@ bool NWK_GroupRemove(uint16_t group);
 
 void nwkGroupInit(void);
 
-#endif // NWK_ENABLE_MULTICAST
-
+#endif /* NWK_ENABLE_MULTICAST */
 #ifdef __cplusplus
 }
 #endif
 
-#endif // _NWK_FRAME_H_
+#endif /* _NWK_FRAME_H_ */

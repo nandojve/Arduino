@@ -52,8 +52,7 @@
 
 /*- Definitions ------------------------------------------------------------*/
 #if defined(PLATFORM_WM100)
-	#define ANTENNA_DIVERSITY 0				// [0|1] 1 only with you have ALL antenna mounted
-	#define ANTENNA_DEFAULT	  2				// [1|2] 1 pig-tail, 2 ceramic
+	#define ANTENNA_DIVERSITY 1
 	#define EXT_RF_FRONT_END_CTRL
 	HAL_GPIO_PIN(RF_FRONT_END_EN, G, 5);
 	HAL_GPIO_PIN(RF_FRONT_END_LNA_EN, D, 5);
