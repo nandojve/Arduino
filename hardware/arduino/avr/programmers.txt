@@ -76,3 +76,16 @@ buspirate.program.protocol=buspirate
 buspirate.program.tool=avrdude
 buspirate.program.extra_params=-P{serial.port}
 
+## AVRxPROG need two main applications be current installed: AVRxPROG & ATMEL Studio
+## This programmers uses <device>.xml from ATMEL Studio since v5.1 and now works
+## with v7.0. The AVRxPROG protocol is like STK500 v2 but detects with another word
+## and reboot the hardware to enter in programming mode.
+##
+## One big desavantage is that only works with Windows
+avrxprog.name=AVRxPROG
+avrxprog.communication=serial
+avrxprog.protocol=avrxprog
+avrxprog.speed=115200
+avrxprog.program.protocol=avrxprog
+avrxprog.program.speed=115200
+avrxprog.program.tool=avrxprog
