@@ -120,3 +120,29 @@ tools.avrdude_remote.upload.pattern=/usr/bin/run-avrdude /tmp/sketch.hex {upload
 # - from numeric vendor ID, set to Unknown otherwise
 build.usb_manufacturer="Unknown"
 build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
+
+# AVRxPROG / Programmers tools
+# ------------------------------
+
+tools.avrxprog.path={runtime.tools.avrxprog.path}
+tools.avrxprog.cmd.path=avrxprog
+
+tools.avrxprog.upload.params.verbose=
+tools.avrxprog.upload.params.quiet=-z
+tools.avrxprog.upload.params.verify=-vf
+tools.avrxprog.upload.pattern="{cmd.path}" -d{build.mcu} -c{serial.port} -R -e -pf {upload.verbose} {upload.verify} -if"{build.path}\{build.project_name}.hex"
+
+tools.avrxprog.program.params.verbose=
+tools.avrxprog.program.params.quiet=-z
+tools.avrxprog.program.params.verify=-vf
+tools.avrxprog.program.pattern="{cmd.path}" -d{build.mcu} -c{serial.port} -R -e -pf {program.verbose} {program.verify} -if"{build.path}\{build.project_name}.hex"
+
+tools.avrxprog.erase.params.verbose=
+tools.avrxprog.erase.params.quiet=-z
+tools.avrxprog.erase.params.verify=-vf
+tools.avrxprog.erase.pattern="{cmd.path}" -d{build.mcu} -c{serial.port} -R -e -pf {erase.verbose} {erase.verify} -if"{build.path}\{build.project_name}.hex"
+
+tools.avrxprog.bootloader.params.verbose=
+tools.avrxprog.bootloader.params.quiet=-z
+tools.avrxprog.bootloader.params.verify=-vf
+tools.avrxprog.bootloader.pattern="{cmd.path}" -d{build.mcu} -c{serial.port} -R -e -pf {bootloader.verbose} {bootloader.verify} -if"{build.path}\{build.project_name}.hex"
