@@ -26,6 +26,7 @@ build/windows/dist/*.tar.bz2
 build/windows/launch4j-*.tgz
 build/windows/launch4j-*.zip
 build/windows/launcher/launch4j
+build/windows/liblistSerials-*/
 build/windows/WinAVR-*.zip
 build/macosx/arduino-*.zip
 build/macosx/dist/*.tar.gz
