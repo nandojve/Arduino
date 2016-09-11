@@ -841,3 +841,71 @@ gemma.build.board=AVR_GEMMA
 gemma.upload.tool=avrdude
 gemma.upload.maximum_size=5310
 
+##############################################################
+
+kitrfa1_duino.name=KITRFA1
+
+kitrfa1_duino.bootloader.tool=jtagicemkii
+kitrfa1_duino.bootloader.low_fuses=0xF6
+kitrfa1_duino.bootloader.high_fuses=0x10
+kitrfa1_duino.bootloader.extended_fuses=0xFE
+kitrfa1_duino.bootloader.path=atmegarf
+kitrfa1_duino.bootloader.lock_bits=0x0F
+kitrfa1_duino.bootloader.unlock_bits=0x3F
+kitrfa1_duino.bootloader.file={bootloader.path}\avrxprog_atmega128rfa1_KITRFA1.hex
+
+kitrfa1_duino.build.mcu=atmega128rfa1
+kitrfa1_duino.build.f_cpu=16000000L
+kitrfa1_duino.build.core=wmduino
+kitrfa1_duino.build.variant=kitrfa1
+kitrfa1_duino.build.board=KITRFA1
+kitrfa1_duino.build.extra_flags=-DHAL_ATMEGARFA1 -DPLATFORM_KITRFA1
+
+kitrfa1_duino.upload.tool=avrxprog
+kitrfa1_duino.upload.speed=115200
+
+##############################################################
+
+wm101_duino.name=WM-100-DUINO 128RFA1
+
+wm101_duino.bootloader.tool=jtagicemkii
+wm101_duino.bootloader.low_fuses=0xF6
+wm101_duino.bootloader.high_fuses=0x10
+wm101_duino.bootloader.extended_fuses=0xFE
+wm101_duino.bootloader.path=atmegarf
+wm101_duino.bootloader.lock_bits=0x0F
+wm101_duino.bootloader.unlock_bits=0x3F
+wm101_duino.bootloader.file={bootloader.path}\avrxprog_atmega128rfa1_wm100_duino.hex
+
+wm101_duino.build.mcu=atmega128rfa1
+wm101_duino.build.f_cpu=16000000L
+wm101_duino.build.core=wmduino
+wm101_duino.build.variant=wm100
+wm101_duino.build.board=WM100
+wm101_duino.build.extra_flags=-DHAL_ATMEGARFA1 -DPLATFORM_WM100
+
+wm101_duino.upload.tool=avrxprog
+wm101_duino.upload.speed=115200
+
+##############################################################
+
+wm102_duino.name=WM-100-DUINO 256RFR2
+
+wm102_duino.bootloader.tool=jtagicemkii
+wm102_duino.bootloader.low_fuses=0xF6
+wm102_duino.bootloader.high_fuses=0x10
+wm102_duino.bootloader.extended_fuses=0xFE
+wm102_duino.bootloader.path=atmegarf
+wm102_duino.bootloader.lock_bits=0x0F
+wm102_duino.bootloader.unlock_bits=0x3F
+wm102_duino.bootloader.file={bootloader.path}\avrxprog_atmega256rfr2_wm100_duino.hex
+
+wm102_duino.build.mcu=atmega256rfr2
+wm102_duino.build.f_cpu=16000000L
+wm102_duino.build.core=wmduino
+wm102_duino.build.variant=wm100
+wm102_duino.build.board=WM100
+wm102_duino.build.extra_flags=-DHAL_ATMEGARFR2 -DPLATFORM_WM100
+
+wm102_duino.upload.tool=avrxprog
+wm102_duino.upload.speed=115200
