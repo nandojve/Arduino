@@ -12,6 +12,14 @@ avrispmkii.program.protocol=stk500v2
 avrispmkii.program.tool=avrdude
 avrispmkii.program.extra_params=-Pusb
 
+jtagicemkii.name=JTAGICE MkII ISP
+jtagicemkii.communication=usb
+jtagicemkii.protocol=jtag2isp
+jtagicemkii.program.tool=avrdude
+jtagicemkii.program.protocol=stk500v2
+jtagicemkii.speed=115200
+jtagicemkii.program.extra_params=-Pusb
+
 usbtinyisp.name=USBtinyISP
 usbtinyisp.protocol=usbtiny
 usbtinyisp.program.tool=avrdude
